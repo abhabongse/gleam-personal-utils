@@ -1,31 +1,20 @@
 //// Additional functions related to list manipulation
 
 import gleam/bool
+import gleam/dict.{type Dict}
 import gleam/list
+import gleam/option
 
-/// Returns all r-permutations of the given list of elements
-pub fn combinations(list: List(a), r: Int) -> List(List(a)) {
-  combinations_rec(list.reverse(list), r, [], [])
+/// Counts the number of times each element appears in a list.
+pub fn count(list: List(a)) -> Dict(a, Int) {
+  list.fold(list, dict.new(), increment_counter)
 }
 
-fn combinations_rec(
-  reversed_list: List(a),
-  r: Int,
-  construction: List(a),
-  answers: List(List(a)),
-) -> List(List(a)) {
-  use <- bool.guard(r == 0, [construction, ..answers])
-  use <- bool.guard(list.length(reversed_list) < r, answers)
-  let assert [first, ..rest] = reversed_list
-  answers
-  |> combinations_rec(rest, r - 1, [first, ..construction], _)
-  |> combinations_rec(rest, r, construction, _)
+/// Increments the value of a key in a dictionary.
+pub fn increment_counter(in dict: Dict(a, Int), update key: a) -> Dict(a, Int) {
+  dict.update(dict, key, fn(value) { 1 + option.unwrap(value, 0) })
 }
 
-/// Creates a sequence (i.e. list) of pairs (x, xs)
-/// where `x` is each item from the input list
-/// and `xs` is the list of the remaining items excluding `x`.
-///
 /// Produces a list of pairs `(x, xs)`
 /// where `x` is each item from the input list
 /// and `xs` is the list of the remaining items excluding `x`.
