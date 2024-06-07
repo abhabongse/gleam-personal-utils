@@ -3,6 +3,25 @@
 import gleam/bool
 import gleam/list
 
+/// Returns all r-permutations of the given list of elements
+pub fn combinations(list: List(a), r: Int) -> List(List(a)) {
+  combinations_rec(list.reverse(list), r, [], [])
+}
+
+fn combinations_rec(
+  reversed_list: List(a),
+  r: Int,
+  construction: List(a),
+  answers: List(List(a)),
+) -> List(List(a)) {
+  use <- bool.guard(r == 0, [construction, ..answers])
+  use <- bool.guard(list.length(reversed_list) < r, answers)
+  let assert [first, ..rest] = reversed_list
+  answers
+  |> combinations_rec(rest, r - 1, [first, ..construction], _)
+  |> combinations_rec(rest, r, construction, _)
+}
+
 /// Creates a sequence (i.e. list) of pairs (x, xs)
 /// where `x` is each item from the input list
 /// and `xs` is the list of the remaining items excluding `x`.
