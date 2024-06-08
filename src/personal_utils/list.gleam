@@ -18,6 +18,10 @@ pub fn increment_counter(in dict: Dict(a, Int), update key: a) -> Dict(a, Int) {
 /// Produces a list of pairs `(x, xs)`
 /// where `x` is each item from the input list
 /// and `xs` is the list of the remaining items excluding `x`.
+///
+/// **Implementation details:** It would be incorrect
+/// to use `list.map` together with `list.pop`
+/// when the input list contains repeated elements.
 pub fn one_from_rest_combinations(list: List(a)) -> List(#(a, List(a))) {
   one_from_rest_combinations_rec([], list.reverse(list), [])
 }
