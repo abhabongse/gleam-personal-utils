@@ -3,7 +3,7 @@ import gleam/string
 
 import gleeunit/should
 
-import personal_utils/bool.{apply_if, apply_if_some}
+import personal_utils/bool.{apply_if, apply_if_some} as _
 
 pub fn apply_if_test() {
   {

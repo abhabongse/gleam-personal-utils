@@ -2,7 +2,7 @@ import gleeunit/should
 
 import personal_utils/int.{
   Indeterminate, InvalidBase, NegativeExponent, NegativeNumber, power, to_radix,
-}
+} as _
 
 pub fn to_radix_test() {
   to_radix(0, 2)

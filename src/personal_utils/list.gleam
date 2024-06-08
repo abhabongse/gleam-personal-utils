@@ -3,16 +3,12 @@
 import gleam/bool
 import gleam/dict.{type Dict}
 import gleam/list
-import gleam/option
+
+import personal_utils/dict.{increment_counter} as _
 
 /// Counts the number of times each element appears in a list.
 pub fn count(list: List(a)) -> Dict(a, Int) {
   list.fold(list, dict.new(), increment_counter)
-}
-
-/// Increments the value of a key in a dictionary.
-pub fn increment_counter(in dict: Dict(a, Int), update key: a) -> Dict(a, Int) {
-  dict.update(dict, key, fn(value) { 1 + option.unwrap(value, 0) })
 }
 
 /// Produces a list of pairs `(x, xs)`
